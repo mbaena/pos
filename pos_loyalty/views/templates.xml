@@ -2,8 +2,11 @@
 <odoo>
     <template id="assets" inherit_id="point_of_sale.assets">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/pos_loyalty/static/src/js/pos.js" />
             <link rel="stylesheet" href="/pos_loyalty/static/src/css/pos.css" />
+            <script type="text/javascript" src="/pos_loyalty/static/src/js/models.js" />
+            <script type="text/javascript" src="/pos_loyalty/static/src/js/LoyaltyPoints.js"/>
+            <script type="text/javascript" src="/pos_loyalty/static/src/js/LoyaltyButton.js"/>
+            <script type="text/javascript" src="/pos_loyalty/static/src/js/pos.js" />
         </xpath>
     </template>
 </odoo>

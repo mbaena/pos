@@ -1,16 +1,18 @@
 # Copyright 2004-2010 OpenERP SA
 # Copyright 2017 RGB Consulting S.L. (https://www.rgbconsulting.com)
 # Copyright 2018 Lambda IS DOOEL <https://www.lambda-is.com>
+# Copyright 2023 Consultoria Abolus S.L. <https://www.abolus.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Loyalty Program",
-    "version": "14.0.1.0.0",
+    "version": "14.0.2.0.0",
     "category": "Point of Sale",
     "license": "AGPL-3",
     "author": "OpenERP SA, "
     "RGB Consulting SL, "
     "Lambda IS, "
+    "Consultoría Abolus SL,"
     "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/pos",
     "depends": ["point_of_sale"],
@@ -25,6 +27,10 @@
         "views/pos_order_view.xml",
         "views/res_partner_view.xml",
     ],
-    "qweb": ["static/src/xml/pos.xml"],
+    "qweb": [
+        "static/src/xml/pos.xml",
+        "static/src/xml/LoyaltyPoints.xml",
+        "static/src/xml/LoyaltyButton.xml",
+    ],
     "installable": True,
 }

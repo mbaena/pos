@@ -1,50 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
-    <t t-name="LoyaltyPoints">
-        <div class='loyalty-points'>
-            <div class='loyalty-points-title'>Points</div>
-            <t t-if='points_won'>
-                <div class="loyalty-points-won">
-                    <span class='value'>+<t
-                            t-esc='widget.format_pr(points_won,rounding)'
-                        /></span>
-                </div>
-            </t>
-            <t t-if='points_spent'>
-                <div class="loyalty-points-spent">
-                    <span class='value'>-<t
-                            t-esc='widget.format_pr(points_spent,rounding)'
-                        /></span>
-                </div>
-            </t>
-            <div class='loyalty-points-total'>
-                <span class='value'>
-                    <t t-esc='widget.format_pr(points_total,rounding)' />
-                </span>
-            </div>
-        </div>
+    <t t-inherit="point_of_sale.OrderSummary" t-inherit-mode="extension">
+        <xpath expr="//*[hasclass('summary')]" position="inside">
+            <LoyaltyPoints/>
+        </xpath>
     </t>
-    <t t-name="LoyaltyButton">
-        <div class='control-button'>
-            <i class='fa fa-star' /> Rewards
-        </div>
-    </t>
-    <t t-extend='OrderWidget'>
-        <t t-jquery='.summary' t-operation='prepend'>
-            <div class='loyalty-points oe_hidden'>.</div>
-        </t>
-    </t>
-    <t t-extend='ClientLine'>
-        <t t-jquery='.client-line' t-operation='append'>
+    <t t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension">
+        <xpath expr="//tr[contains(@t-attf-class, 'client-line')]" position="inside">
             <td>
-                <t
-                    t-esc='widget.format_pr(partner.loyalty_points || 0, widget.pos.loyalty ? widget.pos.loyalty.rounding : 1.0)'
-                />
+                 <t t-esc="env.pos.formatFixed(props.partner.loyalty_points || 0)" />
             </td>
-        </t>
+        </xpath>
     </t>
-    <t t-extend="XmlReceipt">
-        <t t-jquery='.before-footer' t-operation='append'>
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//*[hasclass('before-footer')]" position="inside">
             <t t-if='receipt.loyalty'>
                 <div class='loyalty' value-decimals='2' value-autoint='on'>
                     <div>--------------------------------</div>
@@ -90,23 +59,21 @@
                     <br />
                 </div>
             </t>
-        </t>
+        </xpath>
     </t>
-    <t t-extend='ClientDetails'>
-        <t t-jquery='.client-details-right' t-operation='prepend'>
+    <t t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension">
+        <xpath expr="//*[hasclass('client-details-right')]" position="before">
             <div class='client-detail'>
                 <span class='label'>Points</span>
                 <span class='detail client-points'>
-                    <t
-                        t-esc='widget.format_pr(partner.loyalty_points || 0, widget.pos.loyalty ? widget.pos.loyalty.rounding : 1.0)'
-                    />
+                   <t t-esc="env.pos.formatFixed(props.partner.loyalty_points || 0)" />
                 </span>
             </div>
-        </t>
+        </xpath>
     </t>
-    <t t-extend='ClientListScreenWidget'>
-        <t t-jquery='.client-list thead tr' t-operation='append'>
+    <t t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension">
+        <xpath expr="//table[hasclass('client-list')]/thead/tr" position="inside">
             <th>Points</th>
-        </t>
+        </xpath>
     </t>
 </templates>
